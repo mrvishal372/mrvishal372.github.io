@@ -173,3 +173,16 @@ menuBtn.onclick = function(){
     navMenu.classList.toggle("active");
 
 }
+
+
+
+document.addEventListener("click", function(e){
+
+    const menuBtn = document.querySelector(".menu-btn");
+    const navMenu = document.querySelector("nav ul");
+
+    if(!menuBtn.contains(e.target) && !navMenu.contains(e.target)){
+        navMenu.classList.remove("active");
+    }
+
+});
