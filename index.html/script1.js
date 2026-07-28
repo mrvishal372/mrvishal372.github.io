@@ -1,4 +1,4 @@
-// document.addEventListener('contextmenu', event => event.preventDefault());
+//document.addEventListener('contextmenu', event => event.preventDefault());
 
 document.onkeydown = function(e) {
     if (e.keyCode == 123) { return false; }
@@ -165,3 +165,11 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+const menuBtn = document.querySelector(".menu-btn");
+const navMenu = document.querySelector("nav ul");
+
+menuBtn.onclick = function(){
+
+    navMenu.classList.toggle("active");
+
+}
