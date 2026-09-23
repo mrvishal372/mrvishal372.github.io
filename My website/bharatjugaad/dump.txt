@@ -1,0 +1,60 @@
+async function generateRecipes() {
+    const banner = document.getElementById('aiKitchenBanner');
+    const wrapper = document.getElementById('recipeResultsWrapper');
+    const grid = document.getElementById('recipeResultsGrid');
+    const btnText = document.getElementById('btnGetRecipes');
+
+    if (!grid || !wrapper) return;
+
+    if (selectedIngredientIds.size === 0) {
+        showToast('⚠️ Please select at least 1 ingredient from the list!');
+        triggerHaptic('warning');
+        return;
+    }
+
+    const selectedObjects = KITCHEN_INGREDIENTS.filter(i => selectedIngredientIds.has(i.id));
+    const selectedNames = selectedObjects.map(i => i.name + ' (' + i.hindi + ')');
+
+    // UI Loading State
+    btnText.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Analyzing Ingredients...';
+    document.querySelector('button[onclick="generateRecipes()"]').style.pointerEvents = 'none';
+    
+    wrapper.style.display = 'flex';
+    grid.innerHTML = `
+        <div style="padding: 40px; text-align: center; color: #666;">
+            <div class="loader" style="margin: 0 auto 20px auto; border: 4px solid #f3f3f3; border-top: 4px solid #FF9933; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite;"></div>
+            <h3 style="font-size: 1.2rem; margin-bottom: 8px;">AI Chef is thinking...</h3>
+            <p>Creating magical recipes from your ingredients.</p>
+        </div>
+        <style>@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }</style>
+    `;
+    banner.innerHTML = '';
+    wrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    try {
+        const response = await fetch('/api/generate-recipes', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                ingredients: selectedNames,
+                style: document.getElementById('aiStyle').value,
+                time: document.getElementById('aiTime').value,
+                budget: document.getElementById('aiBudget').value
+            })
+        });
+
+        const data = await response.json();
+        
+        if (data.error) {
+            throw new Error(data.error);
+        }
+
+        const recipes = data.recipes;
+        renderAIRecipes(recipes);
+        
+        // Save to local storage history
+        let history = JSON.parse(localStorage.getItem('recipeHistory') || '[]');
+        history = [...recipes, ...history].slice(0, 50); // Keep last 50
+        localStorage.setItem('recipeHistory', JSON.stringify(history));
+
+    } catch (err)

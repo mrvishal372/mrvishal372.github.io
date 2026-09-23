@@ -1,0 +1,55 @@
+        <div class="workspace-panel" id="panel-7" style="background: #f8fafc; height: 100vh; overflow: hidden; display: flex; flex-direction: column;">
+            <div class="workspace-header" style="background: rgba(255,255,255,0.7); backdrop-filter: saturate(180%) blur(24px); -webkit-backdrop-filter: saturate(180%) blur(24px); border-bottom: 1px solid rgba(0,0,0,0.05); z-index: 50; position: sticky; top: 0; padding: 12px 16px;">
+                <div class="workspace-title-group">
+                    <div style="background: linear-gradient(135deg, #4f46e5, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; font-size: 1.4rem; letter-spacing: -0.5px;">KaamKaj</div>
+                </div>
+                <button class="btn-close-workspace ripple" onclick="closeWorkspace()" style="width: 36px; height: 36px; border-radius: 50%; background: rgba(0,0,0,0.05); color: #333; display: flex; justify-content: center; align-items: center;"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <div style="padding: 16px; background: white; border-bottom: 1px solid rgba(0,0,0,0.05);">
+                <button onclick="document.getElementById('kaamkajPostModal').style.display='flex';" style="width: 100%; padding: 14px; border-radius: 12px; background: #4f46e5; color: white; border: none; font-weight: 700; font-size: 1rem; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px;">
+                    <i class="fa-solid fa-plus"></i> Post a New Job
+                </button>
+            </div>
+
+            <div style="flex: 1; overflow-y: auto; padding: 16px; padding-bottom: 120px;">
+                <h3 style="margin: 0 0 12px 0; color: #1f2937; font-size: 1.1rem;">Latest Local Jobs</h3>
+                
+                <div id="kaamkajList" style="display: flex; flex-direction: column; gap: 12px;"></div>
+            </div>
+
+            <!-- Post Job Modal -->
+            <div id="kaamkajPostModal" style="display: none; position: absolute; inset: 0; background: rgba(0,0,0,0.5); z-index: 100; justify-content: center; align-items: center; padding: 16px; backdrop-filter: blur(4px);">
+                <div style="background: white; border-radius: 20px; width: 100%; max-width: 400px; padding: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.2);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                        <h3 style="margin: 0; color: #1f2937;">Post a Job</h3>
+                        <button onclick="document.getElementById('kaamkajPostModal').style.display='none';" style="background: none; border: none; font-size: 1.2rem; color: #6b7280; cursor: pointer;"><i class="fa-solid fa-xmark"></i></button>
+                    </div>
+                    <input type="text" placeholder="Job Title (e.g. Need Driver)" style="width: 100%; padding: 12px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.1); margin-bottom: 12px; outline: none;">
+                    <input type="text" placeholder="Salary (e.g. ₹15,000/mo)" style="width: 100%; padding: 12px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.1); margin-bottom: 12px; outline: none;">
+                    <input type="text" placeholder="Location" style="width: 100%; padding: 12px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.1); margin-bottom: 12px; outline: none;">
+                    <button onclick="document.getElementById('kaamkajPostModal').style.display='none'; showToast('Job posted successfully!', 'success');" style="width: 100%; padding: 12px; border-radius: 12px; background: #4f46e5; color: white; border: none; font-weight: 700; font-size: 1rem; cursor: pointer;">Submit Post</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ==========================================================================
+         FLOATING APPLE iOS LIQUID BOTTOM NAVIGATION PILL
+         ========================================================================== -->
+    
+    <nav class="bottom-nav" id="bottomNav">
+        <div class="nav-indicator" id="navIndicator"></div>
+        <div class="nav-item active" id="nav-home" data-tab="home" onclick="resetToHome()">
+            <i class="fa-solid fa-house"></i> <span>Home</span>
+        </div>
+        <div class="nav-item" id="nav-1" data-tab="1" onclick="openModule(1)">
+            <i class="fa-solid fa-wallet"></i> <span>Money</span>
+        </div>
+        <div class="nav-item" id="nav-5" data-tab="5" onclick="openModule(5)">
+            <i class="fa-solid fa-utensils"></i> <span>Food</span>
+        </div>
+        <div class="nav-item" id="nav-6" data-tab="6" onclick="openModule(6)">
+            <i class="fa-solid fa-building-flag"></i> <span>Schemes</span>
+        </div>

@@ -1,0 +1,6 @@
+{
+  "name": "BharatJugaad",
+  "description": "Bharat ki 7 Roz ki Problem, 1 Click me Solution",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
